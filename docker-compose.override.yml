@@ -32,6 +32,12 @@ services:
     environment:
       MERCURE_EXTRA_DIRECTIVES: demo
 
+  adminer:
+    image: adminer
+    restart: unless-stopped
+    ports:
+      - ${ADMINER_PORT:-8080}:8080
+
 ###> doctrine/doctrine-bundle ###
   database:
     ports:
