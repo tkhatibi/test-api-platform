@@ -14,9 +14,9 @@ export PROJECT_NAME="mooney"
 
 export POSTGRES_SERVICE=database
 
-export DOCKER_COMPOSE=$ROOT_PATH/docker/docker-compose.yml
+export DOCKER_COMPOSE=$ROOT_PATH/docker-compose.yml
 
-export DOCKER_COMPOSE_OVERRIDE=$ROOT_PATH/docker/docker-compose.$APP_ENV.yml
+export DOCKER_COMPOSE_OVERRIDE=$ROOT_PATH/docker-compose.$APP_ENV.yml
 
 __log() {
     if [[ -z "$NO_LOG" ]]; then
