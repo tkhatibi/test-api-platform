@@ -125,12 +125,6 @@ RUN rm $PHP_INI_DIR/conf.d/api-platform.prod.ini; \
 
 COPY docker/php/conf.d/api-platform.dev.ini $PHP_INI_DIR/conf.d/api-platform.dev.ini
 
-RUN set -eux; \
-	apk add --no-cache --virtual .build-deps $PHPIZE_DEPS; \
-	pecl install xdebug; \
-	docker-php-ext-enable xdebug; \
-	apk del .build-deps
-
 # Build Caddy with the Mercure and Vulcain modules
 FROM caddy:${CADDY_VERSION}-builder-alpine AS api_platform_caddy_builder
 
