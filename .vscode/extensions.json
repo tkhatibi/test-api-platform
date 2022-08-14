@@ -1,0 +1,13 @@
+{
+    "recommendations": [
+      "ms-azuretools.vscode-docker",
+      "zamerick.vscode-caddyfile-syntax",
+      "neilbrayfield.php-docblocker",
+      "editorconfig.editorconfig",
+      "xdebug.php-debug",
+      "mehedidracula.php-namespace-resolver",
+      "bmewburn.vscode-intelephense-client",
+      "devsense.phptools-vscode",
+      "streetsidesoftware.code-spell-checker"
+    ]
+}

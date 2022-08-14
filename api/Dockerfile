@@ -109,6 +109,13 @@ RUN set -eux; \
 # Dev image
 FROM api_platform_php AS api_platform_php_dev
 
+ARG XDEBUG_VERSION=3.1.3
+RUN set -eux; \
+	apk add --no-cache --virtual .build-deps $PHPIZE_DEPS; \
+	pecl install xdebug-$XDEBUG_VERSION; \
+	docker-php-ext-enable xdebug; \
+	apk del .build-deps
+
 ENV APP_ENV=dev
 VOLUME /srv/app/var/
 
@@ -118,20 +125,14 @@ RUN rm $PHP_INI_DIR/conf.d/api-platform.prod.ini; \
 
 COPY docker/php/conf.d/api-platform.dev.ini $PHP_INI_DIR/conf.d/api-platform.dev.ini
 
-RUN set -eux; \
-	apk add --no-cache --virtual .build-deps $PHPIZE_DEPS; \
-	pecl install xdebug; \
-	docker-php-ext-enable xdebug; \
-	apk del .build-deps
-
 # Build Caddy with the Mercure and Vulcain modules
 FROM caddy:${CADDY_VERSION}-builder-alpine AS api_platform_caddy_builder
 
 RUN xcaddy build \
-    --with github.com/dunglas/mercure \
-    --with github.com/dunglas/mercure/caddy \
-    --with github.com/dunglas/vulcain \
-    --with github.com/dunglas/vulcain/caddy
+	--with github.com/dunglas/mercure \
+	--with github.com/dunglas/mercure/caddy \
+	--with github.com/dunglas/vulcain \
+	--with github.com/dunglas/vulcain/caddy
 
 # Caddy image
 FROM caddy:${CADDY_VERSION} AS api_platform_caddy
