@@ -26,3 +26,4 @@ public/bundles/
 tests/
 var/
 vendor/
+config/jwt/
