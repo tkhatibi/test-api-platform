@@ -2,20 +2,27 @@
 
 namespace App\Entity;
 
+use ApiPlatform\Metadata\ApiProperty;
+use ApiPlatform\Metadata\ApiResource;
 use App\Repository\UserRepository;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Validator\Constraints as Assert;
 
+#[ApiResource(mercure: true)]
 #[ORM\Entity(repositoryClass: UserRepository::class)]
 #[ORM\Table(name: '`user`')]
 class User implements UserInterface, PasswordAuthenticatedUserInterface
 {
+    #[ApiProperty(identifier: true)]
+    #[ORM\Column(type: 'guid')]
+    #[ORM\GeneratedValue(strategy: 'NONE')]
     #[ORM\Id]
-    #[ORM\GeneratedValue]
-    #[ORM\Column()]
-    private ?int $id = null;
+    private ?string $id = null;
 
+    #[Assert\Email()]
+    #[Assert\Length(max: 180)]
     #[ORM\Column(length: 180, unique: true)]
     private ?string $email = null;
 
@@ -28,7 +35,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column]
     private ?string $password = null;
 
-    public function getId(): ?int
+    public function getId(): ?string
     {
         return $this->id;
     }
